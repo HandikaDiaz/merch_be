@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  role     Role?  @default(member)
+
+  profile  Profile?
+  category Category[]
+  product  Product[]
+
+  @@map("user")
+}
+
+model Profile {
+  id       Int            @id @default(autoincrement())
+  username String         @unique
+  phone    Int?
+  gender   Gender?
+  address  String?
+  image    ImageProfile[]
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  @@unique([userId])
+  @@map("profile")
+}
+
+model Category {
+  id           Int    @id @default(autoincrement())
+  categoryName String
+
+  product Product[]
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("category")
+}
+
+model Product {
+  id          Int            @id @default(autoincrement())
+  productName String
+  productDesc String
+  price       Int
+  Qty         Int
+  image       ImageProduct[]
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@map("product")
+}
+
+model ImageProduct {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("imgproduct")
+}
+
+model ImageProfile {
+  id  Int    @id @default(autoincrement())
+  url String
+
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id])
+
+  @@map("imgprofile")
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+enum Role {
+  admin
+  member
+}
