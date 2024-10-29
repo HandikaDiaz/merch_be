@@ -18,10 +18,10 @@ app.get("/", (req: Request, res: Response) => {
     });
 })
 
-app.use((req: Request, res: Response) => {
-    res.status(500).json({
-        message: res.locals.errorMessage,
-    });
-});
+// app.use((req: Request, res: Response) => {
+//     res.status(500).json({
+//         message: res.locals.errorMessage,
+//     });
+// });
 
 app.listen(port, () => console.log("Server is running on port 3000"));

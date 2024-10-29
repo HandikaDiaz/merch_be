@@ -13,8 +13,8 @@ export async function updateProfie(data: updateProfileDto, userId: number) {
         gender: (data.gender !== undefined ? data.gender : profile.gender) as Gender | null,
         phone: data.phone !== undefined ? Number(data.phone) : Number(profile.phone)
     }
-    if (data.image) {
-        await profileRepo.editProfileImage(profile.image[0].id, data.image.url);
+    if (data.image && profile.image?.id !== undefined) {
+        await profileRepo.editProfileImage(profile.image?.id, data.image.url);
     }
     const updatedProfile = await profileRepo.editProfile(updatedData, userId);
     if (!updatedProfile) {

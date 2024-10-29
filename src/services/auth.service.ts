@@ -40,11 +40,11 @@ export async function login(data: LoginDto) {
     const {password, ...result} = existUser;
     const token = jwt.sign(
         result,
-        process.env.JWT_SECRET as string,
-        { expiresIn: '1d' }
+        process.env.JWT_SECRET as string
     );
     return({
         message: 'Login Sucessfully',
+        user: result,
         token
     })
 }

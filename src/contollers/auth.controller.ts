@@ -31,8 +31,8 @@ export async function register(req: CustomRequest, res: Response) {
 
 export async function login(req: CustomRequest, res: Response) {
     try {
-        const body = req.body
-        const user = await authService.login(body)
+        const body = req.body;
+        const user = await authService.login(body);
         res.json(user)
     } catch (error) {
         console.log(error)

@@ -18,7 +18,8 @@ export async function getAllCategories(req: CustomRequest, res: Response) {
 
 export async function getCategories(req: CustomRequest, res: Response) {
     try {
-        const categories = await categoryService.findCategoryByUserId(req.user.id);
+        const categoryId = parseInt(req.params.categoryId);
+        const categories = await categoryService.findCategoryById(categoryId);
         res.json(categories);
     } catch (error) {
         console.log(error);

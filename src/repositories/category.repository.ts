@@ -18,14 +18,17 @@ export function findAllCategory() {
                     _count: true
                 }
             }
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
 
-export function findCategoryByUserId(userId: number) {
-    return prisma.category.findMany({
+export function findCategoryById(id: number) {
+    return prisma.category.findUnique({
         where: {
-            userId
+            id
         }
     })
 }

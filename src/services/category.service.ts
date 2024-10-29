@@ -1,8 +1,8 @@
 import { createCategoryDto, editCategoryDto } from "../dto/category.dto";
 import * as categoryRepo from "../repositories/category.repository";
 
-export async function findCategoryByUserId(userId: number) {
-    const category = await categoryRepo.findCategoryByUserId(userId);
+export async function findCategoryById(id: number) {
+    const category = await categoryRepo.findCategoryById(id);
     if (!category) {
         throw new Error("Category not found");
     }

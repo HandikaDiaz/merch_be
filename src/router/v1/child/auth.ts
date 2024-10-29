@@ -1,9 +1,10 @@
 import { Router } from "express";
 import * as authContoller from "../../../contollers/auth.controller";
+import { authentication } from "../../../middlewares/authentication";
 
 const authRouter = Router();
 
-authRouter.get('/check', authContoller.checkAuth);
+authRouter.get('/check', authentication, authContoller.checkAuth);
 authRouter.post('/register', authContoller.register);
 authRouter.post('/login', authContoller.login);
 

@@ -11,5 +11,4 @@ productRouter.post('/create/:id', authentication, upload.single('image'), produc
 productRouter.put('/edit/:id', authentication, upload.single('image'), productController.editProduct);// middleware nanti pake authorize
 productRouter.delete('/delete/:id', authentication, productController.deleteProduct);// middleware nanti pake authorize
 
-
 export default productRouter;

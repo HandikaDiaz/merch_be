@@ -27,12 +27,12 @@ model User {
 }
 
 model Profile {
-  id       Int            @id @default(autoincrement())
-  username String         @unique
+  id       Int           @id @default(autoincrement())
+  username String        @unique
   phone    Int?
   gender   Gender?
   address  String?
-  image    ImageProfile[]
+  image    ImageProfile?
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
@@ -82,9 +82,9 @@ model ImageProduct {
 
 model ImageProfile {
   id  Int    @id @default(autoincrement())
-  url String
+  url String @default("https://i.pinimg.com/736x/8f/b2/ba/8fb2bae4938fb58ea89b4c5a00613eb2.jpg")
 
-  profileId Int
+  profileId Int     @unique
   profile   Profile @relation(fields: [profileId], references: [id])
 
   @@map("imgprofile")
